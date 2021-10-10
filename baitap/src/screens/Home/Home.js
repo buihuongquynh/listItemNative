@@ -1,5 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import {Text, View, FlatList, Button, TouchableOpacity} from 'react-native';
+import {
+  Text,
+  View,
+  FlatList,
+  Button,
+  TouchableOpacity,
+  TextInput,
+} from 'react-native';
 import useHome from './useHome';
 import FoodItem from './TodoItem/TodoItem';
 import styles from './Home.styles';
@@ -29,17 +36,32 @@ const Home = () => {
     edit,
     add,
     deleteItem,
-    setEdit
+    setEdit,
+    listItem,
+    setListItem,
+    handleTitle,
+    handlePrice,
+    handleDescription,
+    handleCategory,
+    SaveHanldeEdit,
+    AddItem,
+    handleEdit,
+    setIdEdit,
+    search,
+    handleSearch,
   } = useHome();
   useEffect(() => {}, [setData]);
-  const deleteIT =(id)=>{
-    deleteItem(id)
-  }
-  const editItem =(id)=>{
-    setEdit(true)
-    // editItem(id)
-  }
-  const renderItem = ({item}) => <FoodItem deleteItem = {deleteIT} editItem={editItem} food={item} />;
+  const deleteIT = id => {
+    deleteItem(id);
+  };
+  const editIT = id => {
+    setIdEdit(id);
+    setEdit(true);
+    handleEdit(id);
+  };
+  const renderItem = ({item}) => (
+    <FoodItem deleteItem={deleteIT} editItem={editIT} food={item} />
+  );
   if (foodLoading || !dataFood) {
     return (
       <View>
@@ -47,18 +69,93 @@ const Home = () => {
       </View>
     );
   }
-  console.log(dataFood);
   return (
     <View>
-      <Button onPress={() => setAdd(true)} title="Add Item" color="#841584" />
+      <TextInput
+        placeholder="category?"
+        style={styles.search}
+        value={search}
+        onChangeText={handleSearch}
+      />
+      {!add ? (
+        <Button
+          onPress={() => {
+            setAdd(true);
+          }}
+          title="Add Item"
+          color="#841584"
+        />
+      ) : null}
       {add ? (
         <View>
-          <Text>add</Text>
+          <TextInput
+            placeholder="title?"
+            style={styles.oinput}
+            value={listItem.title}
+            onChangeText={handleTitle}
+          />
+          <TextInput
+            placeholder="price?"
+            style={styles.oinput}
+            value={listItem.price}
+            onChangeText={handlePrice}
+          />
+          <TextInput
+            placeholder="description?"
+            style={styles.oinput}
+            value={listItem.description}
+            onChangeText={handleDescription}
+          />
+          <TextInput
+            placeholder="category?"
+            style={styles.oinput}
+            value={listItem.category}
+            onChangeText={handleCategory}
+          />
+          <Button
+            onPress={() => {
+              setAdd(false), AddItem(listItem);
+            }}
+            title="Save"
+            color="#841584"
+          />
         </View>
       ) : null}
       {edit ? (
         <View>
-          <Text>edit</Text>
+          <View>
+            <TextInput
+              placeholder="title?"
+              style={styles.oinput}
+              value={listItem.title}
+              onChangeText={handleTitle}
+            />
+            <TextInput
+              placeholder="price?"
+              style={styles.oinput}
+              value={listItem.price}
+              onChangeText={handlePrice}
+            />
+            <TextInput
+              placeholder="description?"
+              style={styles.oinput}
+              value={listItem.description}
+              onChangeText={handleDescription}
+            />
+            <TextInput
+              placeholder="category?"
+              style={styles.oinput}
+              value={listItem.category}
+              onChangeText={handleCategory}
+            />
+            <Button
+              onPress={() => {
+                setEdit(false), SaveHanldeEdit();
+              }}
+              title="Save"
+              color="#841584"
+            />
+          </View>
         </View>
       ) : null}
       <View style={styles.Tab}>

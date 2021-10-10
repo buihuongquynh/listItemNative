@@ -59,5 +59,22 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     textAlign: 'center',
   },
+  oinput:{
+    borderWidth: .5,
+    borderRadius:10,
+    margin:5,
+    padding:5,
+    borderColor:'#555'
+  },
+  search:{
+    width:'50%',
+    marginLeft: 200,
+    justifyContent: 'center',
+    borderWidth: .5,
+    borderRadius:10,
+    margin:5,
+    padding:5,
+    borderColor:'#555'
+  },
 });
 export default styles;

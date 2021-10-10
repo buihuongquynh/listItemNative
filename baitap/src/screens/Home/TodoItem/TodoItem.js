@@ -27,7 +27,6 @@ const FoodItem = ({food, deleteItem, editItem }) => {
               />
             </View>
           </TouchableOpacity>
-
           <TouchableOpacity
           onPress={() => {
             editItem(food.id)
